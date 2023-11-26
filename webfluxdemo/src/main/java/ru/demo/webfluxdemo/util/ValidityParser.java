@@ -17,22 +17,42 @@ public class ValidityParser {
 
   Clock clock;
   Pattern validityPattern =
-      Pattern.compile("^(\\d[Y|y])?(\\d[M|m])?(\\d[D|d])?(\\d[H|h])?(\\d[M|m])?$");
-  Pattern numberPattern = Pattern.compile("^(\\d)\\w$");
+      Pattern.compile("^(\\d+[Y|y])?(\\d+[M|m])?(\\d+[D|d])?(\\d+[H|h])?(\\d+[M|m])?$");
+  Pattern valuePattern = Pattern.compile("^(\\d+)(\\w)$");
 
   public LocalDateTime getFrom(String validity) {
     return Optional.of(validityPattern.matcher(validity))
         .filter(Matcher::find)
         .map(
             matcher -> {
-              int years;
-              int months;
-              int days;
-              int hours;
-              int minutes;
+              var years = getValueFromGroup(1, matcher);
+              var months = getValueFromGroup(2, matcher);
+              var days = getValueFromGroup(3, matcher);
+              var hours = getValueFromGroup(4, matcher);
+              var minutes = getValueFromGroup(5, matcher);
 
-              return LocalDateTime.now(clock);
+              LocalDateTime validityDate =
+                  LocalDateTime.now(clock)
+                      .plusYears(years)
+                      .plusMonths(months)
+                      .plusDays(days)
+                      .plusHours(hours)
+                      .plusMinutes(minutes);
+              return validityDate.equals(LocalDateTime.now(clock)) ? null : validityDate;
             })
+        .orElseThrow();
+  }
+
+  private int getValueFromGroup(int nbrOfGroup, Matcher matcher) {
+    String stringValue = matcher.group(nbrOfGroup);
+    if (stringValue == null) {
+      return 0;
+    }
+
+    return Optional.of(valuePattern.matcher(stringValue))
+        .filter(Matcher::find)
+        .map(valueMatcher -> valueMatcher.group(1))
+        .map(Integer::parseInt)
         .orElseThrow();
   }
 }
