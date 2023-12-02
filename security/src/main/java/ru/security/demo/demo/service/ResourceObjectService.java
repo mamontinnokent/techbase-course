@@ -1,13 +1,10 @@
 package ru.security.demo.demo.service;
 
-import com.dhabits.ss.demo.domain.entity.*;
-import com.dhabits.ss.demo.domain.entity.ResourceObjectEntity;
-import com.dhabits.ss.demo.domain.model.*;
-import com.dhabits.ss.demo.domain.model.ResourceObject;
-import com.dhabits.ss.demo.repository.*;
-import com.dhabits.ss.demo.repository.ResourceObjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.security.demo.demo.domain.resourceobject.entity.ResourceObjectEntity;
+import ru.security.demo.demo.domain.resourceobject.model.ResourceObject;
+import ru.security.demo.demo.repository.ResourceObjectRepository;
 
 @Service
 @RequiredArgsConstructor

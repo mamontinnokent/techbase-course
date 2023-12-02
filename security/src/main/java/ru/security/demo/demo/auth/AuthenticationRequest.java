@@ -1,16 +1,15 @@
 package ru.security.demo.demo.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
+import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Accessors(fluent = true, chain = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationRequest {
-
-  private String email;
+  String email;
   String password;
 }

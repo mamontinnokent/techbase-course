@@ -1,11 +1,5 @@
 package ru.security.demo.demo.auth;
 
-import com.alibou.security.config.JwtService;
-import com.alibou.security.token.Token;
-import com.alibou.security.token.TokenRepository;
-import com.alibou.security.token.TokenType;
-import com.alibou.security.user.User;
-import com.alibou.security.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +9,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.security.demo.demo.config.JwtService;
+import ru.security.demo.demo.domain.token.entity.Token;
+import ru.security.demo.demo.repository.TokenRepository;
+import ru.security.demo.demo.domain.token.entity.TokenType;
+import ru.security.demo.demo.domain.user.entity.User;
+import ru.security.demo.demo.repository.UserRepository;
 
 import java.io.IOException;
 
@@ -28,13 +28,13 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(request.getRole())
-        .build();
+    var user = new User()
+        .firstname(request.firstname())
+        .lastname(request.lastname())
+        .email(request.email())
+        .password(passwordEncoder.encode(request.password()))
+        .role(request.role());
+
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -65,13 +65,13 @@ public class AuthenticationService {
   }
 
   private void saveUserToken(User user, String jwtToken) {
-    var token = Token.builder()
+    var token = new Token()
         .user(user)
         .token(jwtToken)
         .tokenType(TokenType.BEARER)
         .expired(false)
-        .revoked(false)
-        .build();
+        .revoked(false);
+
     tokenRepository.save(token);
   }
 

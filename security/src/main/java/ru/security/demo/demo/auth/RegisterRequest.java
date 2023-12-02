@@ -1,15 +1,15 @@
 package ru.security.demo.demo.auth;
 
-import com.alibou.security.user.Role;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import ru.security.demo.demo.domain.user.entity.Role;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true, fluent = true)
 public class RegisterRequest {
 
   private String firstname;

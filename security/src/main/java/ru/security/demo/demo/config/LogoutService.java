@@ -1,6 +1,5 @@
 package ru.security.demo.demo.config;
 
-import com.alibou.security.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
+import ru.security.demo.demo.repository.TokenRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +30,8 @@ public class LogoutService implements LogoutHandler {
     var storedToken = tokenRepository.findByToken(jwt)
         .orElse(null);
     if (storedToken != null) {
-      storedToken.setExpired(true);
-      storedToken.setRevoked(true);
+      storedToken.expired(true);
+      storedToken.revoked(true);
       tokenRepository.save(storedToken);
       SecurityContextHolder.clearContext();
     }
