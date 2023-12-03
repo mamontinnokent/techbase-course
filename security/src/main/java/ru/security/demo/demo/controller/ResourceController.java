@@ -13,7 +13,7 @@ import ru.security.demo.demo.service.ResourceObjectService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1//resource")
+@RequestMapping("/api/v1/resource")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ResourceController {
 
