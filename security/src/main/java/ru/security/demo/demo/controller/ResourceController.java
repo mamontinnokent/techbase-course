@@ -30,6 +30,7 @@ public class ResourceController {
         service.delete(id);
         return ok().build();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<ResourceObject> getResourceObject(@PathVariable Integer id) {
         return ok(service.get(id));

@@ -39,9 +39,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
-        return new AuthenticationResponse()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken);
+        return new AuthenticationResponse().accessToken(jwtToken).refreshToken(refreshToken);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -52,9 +50,7 @@ public class AuthenticationService {
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return new AuthenticationResponse()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken);
+        return new AuthenticationResponse().accessToken(jwtToken).refreshToken(refreshToken);
     }
 
     private void saveUserToken(User user, String jwtToken) {
@@ -69,7 +65,7 @@ public class AuthenticationService {
     }
 
     private void revokeAllUserTokens(User user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.id());
         if (validUserTokens.isEmpty()) return;
         validUserTokens.forEach(token -> {
             token.expired(true);
@@ -93,9 +89,8 @@ public class AuthenticationService {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
-                var authResponse = new AuthenticationResponse()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken);
+                var authResponse =
+                        new AuthenticationResponse().accessToken(accessToken).refreshToken(refreshToken);
 
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.security.demo.demo.domain.auth.model.AuthenticationRequest;
 import ru.security.demo.demo.domain.auth.model.AuthenticationResponse;
-import ru.security.demo.demo.service.AuthenticationService;
 import ru.security.demo.demo.domain.auth.model.RegisterRequest;
+import ru.security.demo.demo.service.AuthenticationService;
 
 @RestController
 @RequiredArgsConstructor

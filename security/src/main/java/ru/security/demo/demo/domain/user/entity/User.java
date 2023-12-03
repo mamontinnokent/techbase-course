@@ -23,6 +23,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     Integer id;
+
     String email;
     String password;
 
