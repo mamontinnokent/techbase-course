@@ -1,5 +1,7 @@
 package ru.security.demo.demo.service;
 
+import java.security.Principal;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -7,11 +9,9 @@ import lombok.val;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.security.demo.demo.domain.user.model.ChangePasswordRequest;
 import ru.security.demo.demo.domain.user.entity.User;
+import ru.security.demo.demo.domain.user.model.ChangePasswordRequest;
 import ru.security.demo.demo.repository.UserRepository;
-
-import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor

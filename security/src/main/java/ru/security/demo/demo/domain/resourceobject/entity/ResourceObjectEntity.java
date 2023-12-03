@@ -2,21 +2,20 @@ package ru.security.demo.demo.domain.resourceobject.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ResourceObjectEntity {
 
     @Id
-    private Integer id;
-    private String value;
-    private String path;
+    Integer id;
 
+    String value;
+    String path;
 }

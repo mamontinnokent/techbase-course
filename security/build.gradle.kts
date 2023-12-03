@@ -2,8 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
-//    id("com.diffplug.gradle.spotless") version "4.5.1"
-//    id("com.palantir.java-format") version "2.38.0"
+    id("com.diffplug.spotless") version "6.15.0"
 }
 
 group = "ru.security.demo"
@@ -53,29 +52,27 @@ tasks.withType<Test> {
 }
 
 
-//spotless {
-//    java {
-//        target("src/main/java/**/*.java", "src/main/test/**/*.java")
-//        toggleOffOn()  // enable spotless:off and spotless:on
-//        removeUnusedImports()
-//
-//        palantirJavaFormat()
-//
-//        importOrder("#", "com.rbiedrawa", "java", "javax", "")
-//    }
-//    json {
-//        target("**/*.json")
-//        simple()
-//        eclipseWtp("json")
-//        targetExclude(".idea/**/*.json", "out/**/*.json")
-//    }
-//    format("misc") {
-//        target("**/.gitignore", "**/*.gradle", "**/*.md", "**/*.sh")
-//        indentWithTabs()
-//        trimTrailingWhitespace()
-//        endWithNewline()
-//    }
-//}
-//
+spotless {
+    java {
+        target("src/main/java/**/*.java", "src/main/test/**/*.java")
+        toggleOffOn()
+        removeUnusedImports()
 
-//compileJava.dependsOn 'spotlessApply'
+        palantirJavaFormat()
+
+        importOrder("#", "com.rbiedrawa", "java", "javax", "")
+    }
+    json {
+        target("**/*.json")
+        simple()
+        targetExclude(".idea/**/*.json", "out/**/*.json")
+    }
+    format("misc") {
+        target("**/.gitignore", "**/*.gradle", "**/*.md", "**/*.sh")
+        indentWithTabs()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+
