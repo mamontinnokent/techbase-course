@@ -1,6 +1,8 @@
 package ru.security.demo.demo.config;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,9 +17,10 @@ import ru.security.demo.demo.repository.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ApplicationConfig {
 
-    private final UserRepository repository;
+    UserRepository repository;
 
     @Bean
     public UserDetailsService userDetailsService() {

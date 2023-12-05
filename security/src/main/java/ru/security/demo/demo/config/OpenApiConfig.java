@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @OpenAPIDefinition(
         info =
                 @Info(
-                        contact = @Contact(name = "Dezinger", email = "de.zinger.it@gmail.com"),
+                        contact = @Contact(name = "Dezinger"),
                         description = "OpenApi docs for Techbase security",
                         version = "1.0"),
         security = {@SecurityRequirement(name = "bearerAuth")})

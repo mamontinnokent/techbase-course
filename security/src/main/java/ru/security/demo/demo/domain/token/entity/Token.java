@@ -1,10 +1,12 @@
 package ru.security.demo.demo.domain.token.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.experimental.FieldDefaults;
 import ru.security.demo.demo.domain.user.entity.User;
 
 @Data
@@ -12,23 +14,24 @@ import ru.security.demo.demo.domain.user.entity.User;
 @AllArgsConstructor
 @Entity
 @Accessors(chain = true, fluent = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Token {
 
     @Id
     @GeneratedValue
-    public Integer id;
+    Integer id;
 
     @Column(unique = true)
-    public String token;
+    String token;
 
     @Enumerated(EnumType.STRING)
-    public TokenType tokenType = TokenType.BEARER;
+    TokenType tokenType = TokenType.BEARER;
 
-    public boolean revoked;
+    boolean revoked;
 
-    public boolean expired;
+    boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public User user;
+    User user;
 }

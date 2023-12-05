@@ -1,8 +1,10 @@
-package ru.security.demo.demo.config;
+package ru.security.demo.demo.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -11,9 +13,10 @@ import ru.security.demo.demo.repository.TokenRepository;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LogoutService implements LogoutHandler {
 
-    private final TokenRepository tokenRepository;
+    TokenRepository tokenRepository;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
@@ -23,12 +26,12 @@ public class LogoutService implements LogoutHandler {
             return;
         }
         jwt = authHeader.substring(7);
-        var storedToken = tokenRepository.findByToken(jwt).orElse(null);
-        if (storedToken != null) {
-            storedToken.expired(true);
-            storedToken.revoked(true);
-            tokenRepository.save(storedToken);
-            SecurityContextHolder.clearContext();
-        }
+        tokenRepository.findByToken(jwt)
+                .ifPresent(token -> {
+                    token.revoked(true);
+                    token.expired(true);
+                    tokenRepository.save(token);
+                    SecurityContextHolder.clearContext();
+                });
     }
 }

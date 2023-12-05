@@ -5,8 +5,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Accessors(fluent = true, chain = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationRequest {
