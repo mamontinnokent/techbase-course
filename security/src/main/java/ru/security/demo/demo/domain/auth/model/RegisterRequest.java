@@ -9,8 +9,6 @@ import lombok.experimental.FieldDefaults;
 import ru.security.demo.demo.domain.user.entity.Role;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Accessors(chain = true, fluent = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegisterRequest {

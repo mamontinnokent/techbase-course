@@ -1,9 +1,5 @@
 package ru.security.demo.demo.config;
 
-import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,12 +9,18 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import ru.security.demo.demo.domain.user.entity.Role;
+
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import static ru.security.demo.demo.domain.user.entity.Role.ADMIN;
+import static ru.security.demo.demo.domain.user.entity.Role.USER;
+
 
 @Configuration
 @EnableWebSecurity
@@ -50,11 +52,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL)
                         .permitAll()
                         .requestMatchers(DELETE, "/api/v1/resource")
-                        .hasRole(Role.ADMIN.name())
+                        .hasAnyRole(ADMIN.name())
                         .requestMatchers(POST, "/api/v1/resource/**")
-                        .hasRole(Role.ADMIN.name())
+                        .hasAnyRole(ADMIN.name())
                         .requestMatchers(GET, "/api/v1/resource/**")
-                        .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+                        .hasAnyRole(ADMIN.name(), USER.name())
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

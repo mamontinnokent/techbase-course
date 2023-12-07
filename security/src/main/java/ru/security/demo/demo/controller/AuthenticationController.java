@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,9 @@ import ru.security.demo.demo.domain.auth.model.AuthenticationResponse;
 import ru.security.demo.demo.domain.auth.model.RegisterRequest;
 import ru.security.demo.demo.service.AuthenticationService;
 
-@RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
+@RestController("/api/v1/auth")
+@PreAuthorize("permitAll()")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
 
