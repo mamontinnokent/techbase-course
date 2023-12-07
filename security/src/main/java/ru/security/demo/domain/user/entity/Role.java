@@ -16,20 +16,21 @@ public enum Role {
     USER(Set.of(Permission.USER_READ)),
     ADMIN(Set.of(Permission.ADMIN_READ, Permission.ADMIN_UPDATE, Permission.ADMIN_DELETE, Permission.ADMIN_CREATE));
 
-//    String key;
-    @Getter Set<Permission> permissions;
+    //    String key;
+    @Getter
+    Set<Permission> permissions;
 
-//    @JsonValue
-//    public String getKey() {
-//        return key;
-//    }
-//
-//    public static Role of(String key) {
-//        return Arrays.stream(Role.values())
-//                .filter(role -> role.key.equals(key))
-//                .findFirst()
-//                .orElse(USER);
-//    }
+    //    @JsonValue
+    //    public String getKey() {
+    //        return key;
+    //    }
+    //
+    //    public static Role of(String key) {
+    //        return Arrays.stream(Role.values())
+    //                .filter(role -> role.key.equals(key))
+    //                .findFirst()
+    //                .orElse(USER);
+    //    }
 
     public List<SimpleGrantedAuthority> getAuthorities() {
         var authorities = permissions.stream()

@@ -24,7 +24,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import ru.security.demo.repository.TokenRepository;
 import ru.security.demo.service.JwtService;
 
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -36,18 +35,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        log.info("\n\n\n\n\n\n\n" + getBodyText(request) + "\n\n\n\n\n\n\n\n");
-        log.info("\n\n\n\n\n\n\n" + request.getServletPath() + "\n\n\n\n\n\n\n\n");
         if (request.getServletPath().contains("/api/v1/auth")) {
             filterChain.doFilter(request, response);
             return;
         }
-
         val authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);

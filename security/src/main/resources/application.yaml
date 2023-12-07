@@ -27,4 +27,4 @@ server:
 logging:
   level:
     web: trace
-    root: trace
+#    root: trace
