@@ -24,11 +24,11 @@ public class UserService {
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
         val user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-        if (!request.getNewPassword().equals(request.getCurrentPassword())) {
+        if (!request.newPassword().equals(request.currentPassword())) {
             throw new IllegalStateException("Password are not the same");
         }
 
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.password(passwordEncoder.encode(request.newPassword()));
         repository.save(user);
     }
 }

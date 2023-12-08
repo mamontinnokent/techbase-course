@@ -3,6 +3,7 @@ package ru.security.demo.domain.user.entity;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -15,9 +16,10 @@ import ru.security.demo.domain.token.entity.Token;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Accessors(chain = true)
+@Accessors(chain = true, fluent = true)
 @Table(name = "user")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class User implements UserDetails {
 
     @Id

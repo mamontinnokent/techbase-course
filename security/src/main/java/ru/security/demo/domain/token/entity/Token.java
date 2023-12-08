@@ -1,5 +1,6 @@
 package ru.security.demo.domain.token.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,8 +14,9 @@ import ru.security.demo.domain.user.entity.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Accessors(chain = true)
+@Accessors(chain = true, fluent = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Token {
 
     @Id
